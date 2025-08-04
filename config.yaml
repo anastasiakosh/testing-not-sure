@@ -1,0 +1,33 @@
+plank:
+  job_url_prefix_config:
+    "*": "http://localhost:8080/view/gcs/"
+  default_decoration_configs:
+    "*":
+      timeout: 1h0m0s
+      grace_period: 15s
+      utility_images:
+        clonerefs: gcr.io/k8s-prow/clonerefs:v20240724-1d2e3a9f14
+        entrypoint: gcr.io/k8s-prow/entrypoint:v20240724-1d2e3a9f14
+        sidecar: gcr.io/k8s-prow/sidecar:v20240724-1d2e3a9f14
+
+tide:
+  merge_method:
+    "*": squash
+  queries:
+    - repos:
+        - my-org/my-repo
+      labels:
+        - lgtm
+        - approved
+
+presubmits:
+  my-org/my-repo:
+    - name: hello-world
+      decorate: true
+      always_run: true
+      spec:
+        containers:
+          - image: alpine
+            command: ["/bin/sh", "-c"]
+            args: ["echo Hello from prow!"]
+

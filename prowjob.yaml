@@ -1,0 +1,16 @@
+apiVersion: prow.k8s.io/v1
+kind: ProwJob
+metadata:
+  name: hello-job
+spec:
+   agent: kubernetes
+   job: REPLACE_JOB_NAME
+   refs:
+     org: my-org
+     repo: my-repo
+     base_ref: main
+   pod_spec:
+     containers:
+       - image: alpine
+         command: ["/bin/sh", "-c"]
+         args: ["echo Hello from prow job"]

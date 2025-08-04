@@ -1,0 +1,6 @@
+plugins:
+  my-org/my-repo:
+    - approve
+    - lgtm
+    - trigger
+    - config-updater
